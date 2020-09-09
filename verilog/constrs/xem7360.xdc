@@ -61,35 +61,34 @@ set_property PACKAGE_PIN E26 [get_ports {okUHU[31]}]
 set_property SLEW FAST [get_ports {okUHU[*]}]
 set_property IOSTANDARD LVCMOS18 [get_ports {okUHU[*]}]
 
-set_property PACKAGE_PIN R26 [get_ports okAA]
-set_property IOSTANDARD LVCMOS33 [get_ports okAA]
+set_property PACKAGE_PIN R26 [get_ports {okAA}]
+set_property IOSTANDARD LVCMOS33 [get_ports {okAA}]
 
 
-create_clock -period 9.920 -name okUH0 [get_ports {okUH[0]}]
+create_clock -name okUH0 -period 9.920 [get_ports {okUH[0]}]
 
-#set_input_delay -add_delay -max -clock [get_clocks {okUH0}]  8.000 [get_ports {okUH[*]}]
-#set_input_delay -add_delay -min -clock [get_clocks {okUH0}] 10.000 [get_ports {okUH[*]}]
+set_input_delay -add_delay -max -clock [get_clocks {okUH0}]  8.000 [get_ports {okUH[*]}]
+set_input_delay -add_delay -min -clock [get_clocks {okUH0}] 10.000 [get_ports {okUH[*]}]
 set_multicycle_path -setup -from [get_ports {okUH[*]}] 2
 
-set_input_delay -clock [get_clocks okUH0] -max -add_delay 8.000 [get_ports {okUHU[*]}]
-set_input_delay -clock [get_clocks okUH0] -min -add_delay 2.000 [get_ports {okUHU[*]}]
+set_input_delay -add_delay -max -clock [get_clocks {okUH0}]  8.000 [get_ports {okUHU[*]}]
+set_input_delay -add_delay -min -clock [get_clocks {okUH0}]  2.000 [get_ports {okUHU[*]}]
 set_multicycle_path -setup -from [get_ports {okUHU[*]}] 2
 
-set_output_delay -clock [get_clocks okUH0] -max -add_delay 2.000 [get_ports {okHU[*]}]
-set_output_delay -clock [get_clocks okUH0] -min -add_delay -0.500 [get_ports {okHU[*]}]
+set_output_delay -add_delay -max -clock [get_clocks {okUH0}]  2.000 [get_ports {okHU[*]}]
+set_output_delay -add_delay -min -clock [get_clocks {okUH0}]  -0.500 [get_ports {okHU[*]}]
 
-set_output_delay -clock [get_clocks okUH0] -max -add_delay 2.000 [get_ports {okUHU[*]}]
-set_output_delay -clock [get_clocks okUH0] -min -add_delay -0.500 [get_ports {okUHU[*]}]
+set_output_delay -add_delay -max -clock [get_clocks {okUH0}]  2.000 [get_ports {okUHU[*]}]
+set_output_delay -add_delay -min -clock [get_clocks {okUH0}]  -0.500 [get_ports {okUHU[*]}]
 
 
 ############################################################################
 ## System Clock
 ############################################################################
-set_property IOSTANDARD LVDS [get_ports sys_clkp]
-
-set_property IOSTANDARD LVDS [get_ports sys_clkn]
-set_property PACKAGE_PIN AB11 [get_ports sys_clkp]
-set_property PACKAGE_PIN AC11 [get_ports sys_clkn]
+set_property IOSTANDARD LVDS [get_ports {sys_clkp}]
+set_property IOSTANDARD LVDS [get_ports {sys_clkn}]
+set_property PACKAGE_PIN AB11 [get_ports {sys_clkp}]
+set_property PACKAGE_PIN AC11 [get_ports {sys_clkn}]
 
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_ports sys_clkp]] -group [get_clocks mmcm0_clk0]
 # LEDs #####################################################################
@@ -98,7 +97,4 @@ set_property PACKAGE_PIN T25 [get_ports {led[1]}]
 set_property PACKAGE_PIN R25 [get_ports {led[2]}]
 set_property PACKAGE_PIN P26 [get_ports {led[3]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[*]}]
-
-
-
 
